@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class LoginButton extends StatelessWidget {
+class RegistrationButton extends StatelessWidget {
   String textButton;
   TextStyle textStyle;
   Color buttonColor;
-  Function() onTapLogin;
+  Function() onTapRegist;
 
-  LoginButton({
+  RegistrationButton({
     super.key,
     required this.textButton,
     required this.textStyle,
     required this.buttonColor,
-    required this.onTapLogin,
+    required this.onTapRegist,
   });
 
   @override
@@ -25,11 +25,9 @@ class LoginButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(28),
           color: buttonColor,
         ),
-        child: Center(
-          child: Text(textButton, style: textStyle,),
-        ),
+        child: Center(child: Text(textButton, style: textStyle,),),
       ),
-      onTap: (){onTapLogin();},
+      onTap: (){onTapRegist();},
     );
   }
 }

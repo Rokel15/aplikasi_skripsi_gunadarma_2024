@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/auth_provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/registration_screen/app_icon.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/registration_screen/form_registration_input.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/registration_screen/registration_button.dart';
 import '../providers/global_provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -18,6 +20,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       builder: (context, authProvider, child) {
         return Scaffold(
           appBar: AppBar(
+            leading: GestureDetector(
+              child: Icon(Icons.arrow_back, color: Colors.white,),
+              onTap: (){authProvider.cancelRegistration(context);},
+            ),
+            title: Text(
+              "Registration",
+              style: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16SemiBold,
+            ),
             backgroundColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
           ),
           body: Center(
@@ -25,17 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width/2.6,
-                    height: MediaQuery.of(context).size.height*3/12,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: Image.asset(
-                        Provider.of<GlobalProvider>(context, listen: false).appIcon,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                  AppIcon(image: Provider.of<GlobalProvider>(context, listen: false).appIcon,),
 
                   const SizedBox(height: 20,),
 
@@ -49,7 +49,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     borderColor: authProvider.borderColor,
                   ),
 
-                  const SizedBox(height: 20,),
+                  const SizedBox(height: 24,),
 
                   FormRegistrationInput(
                     textEditingController: authProvider.passwordRegistController,
@@ -65,21 +65,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     borderColor: authProvider.borderColor,
                   ),
 
-                  const SizedBox(height: 20,),
+                  const SizedBox(height: 24,),
 
-                  //for confirm password
                   FormRegistrationInput(
-                    textEditingController: authProvider.passwordRegistController,
-                    obscureText: authProvider.visiblePasswordRegist==false?
-                    authProvider.passwordRegistObsecureTextTrue :
-                    authProvider.passwordRegistObsecureText,
-                    hintLabel: authProvider.passwordRegistLabel,
-                    hintText: authProvider.passwordRegistHint,
-                    suffixIcon: authProvider.visiblePasswordRegist==false?
+                    textEditingController: authProvider.confirmPasswordRegistController,
+                    obscureText: authProvider.visibleConfirmPasswordRegist==false?
+                    authProvider.confirmPasswordRegistObsecureTextTrue :
+                    authProvider.confirmPasswordRegistObsecureText,
+                    hintLabel: authProvider.confirmPasswordRegistLabel,
+                    hintText: authProvider.confirmPasswordRegistHint,
+                    suffixIcon: authProvider.visibleConfirmPasswordRegist==false?
                     authProvider.showPasswordOffIcon :
                     authProvider.showPasswordOnIcon,
-                    onTapSuffixIcon: (){authProvider.showPasswordRegist();},
+                    onTapSuffixIcon: (){authProvider.showConfirmPasswordRegist();},
                     borderColor: authProvider.borderColor,
+                  ),
+
+                  const SizedBox(height: 28,),
+
+                  RegistrationButton(
+                    textButton: authProvider.textRegistrationButton,
+                    textStyle: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16Bold,
+                    buttonColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+                    onTapRegist: () => authProvider.register(context),
                   ),
                 ],
               ),

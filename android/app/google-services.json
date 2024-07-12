@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "479221801796",
+    "project_id": "gunadarma-skripsi-24",
+    "storage_bucket": "gunadarma-skripsi-24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479221801796:android:ab958f22c6722b7e272d11",
+        "android_client_info": {
+          "package_name": "com.example.jea_skripsi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnwGHq8fVLSn5arOWwK2yFg1aaRTLq0YA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

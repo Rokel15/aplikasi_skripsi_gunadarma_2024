@@ -64,9 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30,),
 
                     LoginButton(
-                      textButton: authProvider.textButton,
+                      textButton: authProvider.textLoginButton,
                       textStyle: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16Bold,
                       buttonColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+                      onTapLogin: () => authProvider.login(context),
                     ),
 
                     const SizedBox(height: 20,),

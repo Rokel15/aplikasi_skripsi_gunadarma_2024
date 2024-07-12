@@ -16,6 +16,9 @@ class GlobalProvider extends ChangeNotifier{
   TextStyle roboto16SemiBold = GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w600,);
   TextStyle roboto16Bold = GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w700,);
 
+  TextStyle whiteRoboto14Bold = GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white);
+
+  TextStyle whiteRoboto16SemiBold = GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
   TextStyle whiteRoboto16Bold = GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white);
   TextStyle greenRoboto16Bold = GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.green[900]);
 }

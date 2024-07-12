@@ -1,12 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/firebase_options.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/auth_provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/dashboard_screen.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/login_screen.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/registration_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -23,7 +28,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AuthProvider>(
           create: (context) => AuthProvider(),
-        )
+        ),
+        ChangeNotifierProvider<DashboardProvider>(
+          create: (context) => DashboardProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'shallot farming decision makers',
@@ -35,6 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/login screen" : (BuildContext context) => const LoginScreen(),
           "/registration screen" : (BuildContext context) => const RegistrationScreen(),
+          "/dashboard screen" : (BuildContext context) => const DashboardScreen(),
         },
       ),
     );
