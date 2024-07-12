@@ -38,4 +38,27 @@ class AuthProvider extends ChangeNotifier{
     Navigator.pushNamed(context, "/registration screen");
     notifyListeners();
   }
+
+  bool emailRegistObsecureText = false;
+  String emailRegistLabel = "Email";
+  String emailRegistHint = "input email";
+  TextEditingController emailRegistController = TextEditingController();
+
+  bool passwordRegistObsecureTextTrue = true;
+  bool passwordRegistObsecureText = false;
+  String passwordRegistLabel = "Password";
+  String passwordRegistHint = "input password";
+  TextEditingController passwordRegistController = TextEditingController();
+  bool visiblePasswordRegist = false;
+
+  void showPasswordRegist(){
+    if(visiblePasswordRegist==false){
+      visiblePasswordRegist = true;
+      notifyListeners();
+    } else if(visiblePasswordRegist==true){
+      visiblePasswordRegist=false;
+      notifyListeners();
+    }
+    notifyListeners();
+  }
 }

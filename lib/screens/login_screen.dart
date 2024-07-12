@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/auth_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/login_screen/app_icon.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/login_screen/form_login_input.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/login_screen/login_button.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/login_screen/registration.dart';
@@ -30,17 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width/2.3,
-                      height: MediaQuery.of(context).size.height*3/10,
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.asset(
-                          Provider.of<GlobalProvider>(context, listen: false).appIcon,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                    AppIcon(image: Provider.of<GlobalProvider>(context, listen: false).appIcon,),
 
                     const SizedBox(height: 76,),
 
@@ -86,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
                       registerTextStyle: Provider.of<GlobalProvider>(context, listen: false).greenRoboto16Bold,
                       onTapTextForRegist: () => authProvider.goToRegistrationScreen(context),
-                    )
+                    ),
                   ],
                 ),
               ),

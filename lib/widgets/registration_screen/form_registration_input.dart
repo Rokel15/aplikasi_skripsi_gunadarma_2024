@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FormLoginInput extends StatelessWidget {
+class FormRegistrationInput extends StatelessWidget {
   TextEditingController textEditingController;
   bool obscureText;
   String hintLabel;
@@ -9,7 +9,7 @@ class FormLoginInput extends StatelessWidget {
   Function() onTapSuffixIcon;
   Color borderColor;
 
-  FormLoginInput({
+  FormRegistrationInput({
     super.key,
     required this.textEditingController,
     required this.obscureText,
