@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
 
 class AuthProvider extends ChangeNotifier{
@@ -36,18 +38,57 @@ class AuthProvider extends ChangeNotifier{
   String textForRegist = "register";
 
   void login(BuildContext context)async{
-    // try{
-    //   await AuthService().signUp(
-    //     email: emailRegistController.text,
-    //     password: passwordRegistController.text,
-    //   );
-    //   notifyListeners();
-    // }catch(e){
-    //   rethrow;
-    // }
-    Navigator.pushReplacementNamed(context, "/dashboard screen");
+    bool success = await AuthService().signIn(
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
+
+    if(success) {
+      Navigator.pushReplacementNamed(context, "/dashboard screen");
+      notifyListeners();
+    }
+
     notifyListeners();
   }
+
+  // Future<void> signIn(BuildContext context)async {
+  //   try{
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: emailController.text,
+  //       password: passwordController.text,
+  //     );
+  //     const CircularProgressIndicator();
+  //     // await Future.delayed(const Duration(seconds: 2));
+  //     Navigator.pushReplacementNamed(context, "/dashboard screen");
+  //     notifyListeners();
+  //   }
+  //   on FirebaseAuthException catch(e){
+  //     String message = "wrong password or no user found";
+  //     // if(e.code == 'user-not-found'){
+  //     //   message = "No user found for that email";
+  //     // } else if(e.code == 'wrong-password'){
+  //     //   message = "Wrong password provided for that user";
+  //     // }
+  //     Fluttertoast.showToast(
+  //       msg: e.toString(),
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.SNACKBAR,
+  //       backgroundColor: Colors.black54,
+  //       textColor: Colors.white,
+  //     );
+  //     notifyListeners();
+  //   }
+  //   // catch (e) {
+  //   //   Fluttertoast.showToast(
+  //   //     msg: "An unexpected error occurred",
+  //   //     toastLength: Toast.LENGTH_LONG,
+  //   //     gravity: ToastGravity.SNACKBAR,
+  //   //     backgroundColor: Colors.black54,
+  //   //     textColor: Colors.white,
+  //   //   );
+  //   // }
+  // }
 
   void goToRegistrationScreen(BuildContext context) async{
     Navigator.pushNamed(context, "/registration screen");

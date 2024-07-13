@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart%20';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthService{
@@ -33,33 +35,40 @@ class AuthService{
     }
   }
 
-  Future<void> signIn({
+  Future<bool> signIn({
     required String email,
     required String password,
+    required BuildContext context,
   })async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-    } on FirebaseAuthException catch(e){
-      String message = "";
-      if(e.code == 'user-not-found'){
-        message = "No user found for that email";
-      } else if(e.code == 'wrong-password'){
-        message = "Wrong password provided for that user";
-      }
+      return true;
+    }
+    on FirebaseAuthException catch(e){
+      // String message = "";
+      // if(e.code == 'user-not-found'){
+      //   message = "No user found for that email";
+      // } else if(e.code == 'wrong-password'){
+      //   message = "Wrong password provided for that user";
+      // }
       Fluttertoast.showToast(
-        msg: message,
+        msg: e.toString(),
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.SNACKBAR,
         backgroundColor: Colors.black54,
         textColor: Colors.white,
       );
+      return false;
     }
-    catch(e){
-      rethrow;
-    }
+  }
+
+  Future<void> signout({
+    required BuildContext context,
+  }) async{
+    await FirebaseAuth.instance.signOut();
+    await Future.delayed(const Duration(seconds: 1));
   }
 }

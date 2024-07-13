@@ -11,43 +11,51 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DashboardProvider>(
       builder: (context, dashboardProvider, child) {
-        return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(0),
-            child: AppBar(
-              backgroundColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+        return PopScope(
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(0),
+              child: AppBar(
+                backgroundColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+              ),
             ),
-          ),
-          body: SingleChildScrollView(
-            child: Container(
-              color: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+            body: SingleChildScrollView(
               child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
-                    color: Colors.white
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 40,),
+                color: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                      color: Colors.white
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 40,),
 
-                    UserData(
-                      profileIcon: dashboardProvider.profileIcon,
-                      email: "email",
-                      uid: "uid",
-                      emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                      uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
-                    ),
+                      UserData(
+                        profileIcon: dashboardProvider.profileIcon,
+                        email: "email",
+                        uid: "uid",
+                        emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                        uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
+                      ),
 
-                    const SizedBox(height: 10,),
-                  ],
-                ),
-              ),),
+                      const SizedBox(height: 40,),
+
+                      ElevatedButton(onPressed: (){}, child: Text("log out"))
+                    ],
+                  ),
+                ),),
+            ),
+            backgroundColor: Colors.white,
           ),
-          backgroundColor: Colors.white,
+          canPop: false,
+          onPopInvoked: (didPop){
+            dashboardProvider.logout(context);
+          },
         );
       },
     );
