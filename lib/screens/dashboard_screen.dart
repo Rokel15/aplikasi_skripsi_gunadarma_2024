@@ -12,6 +12,10 @@ class DashboardScreen extends StatelessWidget {
     return Consumer<DashboardProvider>(
       builder: (context, dashboardProvider, child) {
         return PopScope(
+          canPop: false,
+          onPopInvoked: (didPop){
+            dashboardProvider.logout(context);
+          },
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(0),
@@ -37,8 +41,8 @@ class DashboardScreen extends StatelessWidget {
 
                       UserData(
                         profileIcon: dashboardProvider.profileIcon,
-                        email: "email",
-                        uid: "uid",
+                        email: dashboardProvider.email,
+                        uid: dashboardProvider.uid,
                         emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
                         uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
                       ),
@@ -52,10 +56,6 @@ class DashboardScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
           ),
-          canPop: false,
-          onPopInvoked: (didPop){
-            dashboardProvider.logout(context);
-          },
         );
       },
     );

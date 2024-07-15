@@ -21,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return Scaffold(
           appBar: AppBar(
             leading: GestureDetector(
-              child: Icon(Icons.arrow_back, color: Colors.white,),
+              child: const Icon(Icons.arrow_back, color: Colors.white,),
               onTap: (){authProvider.cancelRegistration(context);},
             ),
             title: Text(

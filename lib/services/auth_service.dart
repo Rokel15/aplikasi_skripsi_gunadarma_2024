@@ -5,6 +5,8 @@ import 'package:flutter/material.dart%20';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthService{
+  User? user = FirebaseAuth.instance.currentUser;
+
   Future<void> signUp({
     required String email,
     required String password,
@@ -65,7 +67,7 @@ class AuthService{
     }
   }
 
-  Future<void> signout({
+  Future<void> signOut({
     required BuildContext context,
   }) async{
     await FirebaseAuth.instance.signOut();
