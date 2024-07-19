@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
 
 class AuthProvider extends ChangeNotifier{
