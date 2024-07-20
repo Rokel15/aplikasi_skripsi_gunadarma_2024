@@ -54,8 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       authProvider.passwordObscureText,
                       hintLabel: authProvider.passwordLabel,
                       hintText: authProvider.passwordHint,
-                      suffixIcon: authProvider.visiblePassword==false?
-                      authProvider.showPasswordOffIcon :
+                      suffixIcon: authProvider.visiblePassword==false? authProvider.showPasswordOffIcon :
                       authProvider.showPasswordOnIcon,
                       onTapSuffixIcon: () => authProvider.showPassword(),
                       borderColor: authProvider.borderColor,
@@ -81,8 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-              ),
-            )
+              )
+            ),
         );
       },
     );

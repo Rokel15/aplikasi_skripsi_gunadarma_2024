@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/open_weather_model.dart';
-import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/visual_crossing_model.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/location_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
-import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/open_weather_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_data.dart';
 import '../providers/global_provider.dart';
-import '../services/visual_crossing_service.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -54,34 +50,31 @@ class DashboardScreen extends StatelessWidget {
 
                       const SizedBox(height: 20,),
 
-                      SizedBox(
-                        width: double.infinity,
-                        child: StreamBuilder(
-                          stream: dashboardProvider.locationService.locationStream,
-                          builder: (_, snapshot){
-                            if(snapshot.hasData){
-                              dashboardProvider.setLocation(latitude: snapshot.data!.latitude, longitude: snapshot.data!.longitude);
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Lt = ${snapshot.data?.latitude}"),
-                                  const SizedBox(width: 20,),
-                                  Text("Lng = ${snapshot.data?.longitude}"),
-                                ],
-                              );
-                            } else {
-                              return const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Lt = waiting..."),
-                                  SizedBox(width: 20,),
-                                  Text("Lng = waiting..."),
-                                ],
-                              );
-                            }
-                          },
-                        ),
+                      StreamBuilder<LocationModel>(
+                        stream: dashboardProvider.locationService.locationStream,
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData){
+                            LocationModel locationData = snapshot.data!;
+                            dashboardProvider.setLocation(
+                              latitude: locationData.latitude,
+                              longitude: locationData.longitude,
+                            );
+                            return Column(
+                              children: [
+                                Text("latitude : ${locationData.latitude}"),
+                                Text("longitude : ${locationData.longitude}"),
+                              ],
+                            );
+                          } else{
+                            return Container();
+                          }
+                        },
                       ),
+
+                      const SizedBox(height: 20,),
+
+                      Text("latitude : ${dashboardProvider.latitude}"),
+                      Text("longitude : ${dashboardProvider.longitude}"),
 
                       const SizedBox(height: 20,),
 
@@ -98,42 +91,79 @@ class DashboardScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 24,),
 
-                            StreamBuilder<OpenWeatherModel>(
-                              stream: dashboardProvider.fetchWeatherData(),
-                              builder: (_, snapshot) {
-                                if (snapshot.hasError) {
-                                  return Center(child: Text('Error: ${snapshot.error}'));
-                                } else if (snapshot.hasData) {
-                                  OpenWeatherModel weatherData = snapshot.data!;
-                                  return Column(
-                                    children: [
-                                      Text(weatherData.coord.lat.toString()),
-                                      Text(weatherData.coord.lon.toString()),
+                            if(dashboardProvider.isLoading)
+                              const Center(child: CircularProgressIndicator(),)
+                            else if(dashboardProvider.weatherData != null)
+                              Column(
+                                children: [
+                                  Text("lat ${dashboardProvider.weatherData!.coord.lat}"),
+                                  Text("lon ${dashboardProvider.weatherData!.coord.lon}"),
+                                  Column(
+                                    children: dashboardProvider.weatherData!.weather.map((weather) => Text("main : ${weather.main}")).toList(),
+                                  ),
+                                  Column(
+                                    children: dashboardProvider.weatherData!.weather.map((weather) => Text("description : ${weather.description}")).toList(),
+                                  ),
+                                  Text("base : ${dashboardProvider.weatherData!.base}"),
+                                  Text("main temp : ${dashboardProvider.weatherData!.main.temp}"),
+                                  Text("main feels like : ${dashboardProvider.weatherData!.main.feelsLike}"),
+                                  Text("main humidity : ${dashboardProvider.weatherData!.main.humidity}"),
+                                  Text("visibility : ${dashboardProvider.weatherData!.visibility}"),
+                                  Text("wind speed : ${dashboardProvider.weatherData!.wind.speed}"),
+                                  Text("sys id : ${dashboardProvider.weatherData!.sys.id}"),
+                                  Text("sys country : ${dashboardProvider.weatherData!.sys.country}"),
+                                  Text("name : ${dashboardProvider.weatherData!.name}"),
+                                  Text("Weather COD: ${dashboardProvider.weatherData!.cod}"),
+                                ],
+                              )
+                            else
+                              const Text("No data available"),
 
-                                      Column(
-                                        children: weatherData.weather.map((weather) => Text(weather.main)).toList(),
-                                      ),
+                            // FutureBuilder(
+                            //   future: OpenWeatherService().getWeather(
+                            //     lat: dashboardProvider.latitude.toString(),
+                            //     lon: dashboardProvider.longitude.toString(),
+                            //   ),
+                            //   builder: (_, snapshot) {
+                            //     if (snapshot.hasError) {
+                            //       return Text("Error: ${snapshot.error}");
+                            //     } else if (!snapshot.hasData || snapshot.data == null) {
+                            //       return const Text("No data available");
+                            //     } else {
+                            //       OpenWeatherModel weatherData = snapshot.data!;
+                            //       return Column(
+                            //         children: [
+                            //           Text("lat ${weatherData.coord.lat}"),
+                            //           Text("lon ${weatherData.coord.lon}"),
+                            //           Column(
+                            //             children: weatherData.weather.map((weather) => Text("main : ${weather.main}")).toList(),
+                            //           ),
+                            //           Column(
+                            //             children: weatherData.weather.map((weather) => Text("description : ${weather.description}")).toList(),
+                            //           ),
+                            //           Text("base : ${weatherData.base}"),
+                            //           Text("main temp : ${weatherData.main.temp}"),
+                            //           Text("main feels like : ${weatherData.main.feelsLike}"),
+                            //           Text("main humidity : ${weatherData.main.humidity}"),
+                            //           Text("visibility : ${weatherData.visibility}"),
+                            //           Text("wind speed : ${weatherData.wind.speed}"),
+                            //           Text("sys id : ${weatherData.sys.id}"),
+                            //           Text("sys country : ${weatherData.sys.country}"),
+                            //           Text("name : ${weatherData.name}"),
+                            //           Text("Weather COD: ${weatherData.cod}"),
+                            //         ],
+                            //       );
+                            //     }
+                            //   },
+                            // ),
 
-                                      Column(
-                                        children: weatherData.weather.map((weather) => Text(weather.icon)).toList(),
-                                      ),
-
-                                      Text("Weather COD: ${weatherData.cod}"),
-                                    ],
-                                  );
-                                } else {
-                                  return const Text("no data");
-                                }
-                              },
+                            ElevatedButton(
+                              onPressed: () => dashboardProvider.fetchWeatherData(),
+                              child: const Text("Load Data"),
                             ),
-
-                            Text("${dashboardProvider.latitude}"),
-                            Text("${dashboardProvider.longitude}"),
                           ],
                         ),
                       ),
-
-                      ElevatedButton(onPressed: (){}, child: const Text("log out"))
                     ],
                   ),
                 ),),
