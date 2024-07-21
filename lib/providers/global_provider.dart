@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GlobalProvider extends ChangeNotifier{
-  Color mainColor = const Color(0xff448E75);
+  Color mainColor = const Color(0xff51AB8C);
   String appIcon = "images/app_icon.png";
 
   // LocationService locationService = LocationService();

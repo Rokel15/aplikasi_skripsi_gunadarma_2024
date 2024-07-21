@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         title: 'shallot farming decision makers',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          colorScheme: const ColorScheme.dark(),
           useMaterial3: true,
         ),
         initialRoute: "/login screen",
