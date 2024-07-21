@@ -31,11 +31,22 @@ class UserData extends StatelessWidget {
 
         const SizedBox(height: 20,),
 
-        Text(email, style: emailTextStyle,),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.green,
+          ),
+          child: Column(
+            children: [
+              Text(email, style: emailTextStyle,),
 
-        const SizedBox(height: 10,),
+              const SizedBox(height: 10,),
 
-        Text(uid, style: uidTextStyle,),
+              Text(uid, style: uidTextStyle,),
+            ],
+          ),
+        ),
       ],
     );
   }

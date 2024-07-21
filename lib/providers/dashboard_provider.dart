@@ -38,27 +38,6 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Stream<OpenWeatherModel> fetchWeatherData({
-  //   required String latitude,
-  //   required String longitude,
-  // }) async* {
-  //   notifyListeners();
-  //   while (true) {
-  //     // if(latitude != null && longitude != null){
-  //     // try {
-  //       yield await OpenWeatherService().getWeather(
-  //         lat: latitude,
-  //         lon: longitude,
-  //       );
-  //       print("fetch data");
-  //       print(latitude);
-  //       print(longitude);
-  //       await Future.delayed(const Duration(seconds: 2));
-  //       notifyListeners();
-  //     // } catch (e) {}
-  //   }
-  // }
-
   // Future fetchWeatherData(
   //     // {required String lat, required String lon}
   //     ) async{
@@ -69,21 +48,18 @@ class DashboardProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  // void fetchWeatherDataa(
-  //     // {required String lat, required String lon}
-  //     ) async{
-  //   await OpenWeatherService().getWeather(
-  //     lat: latitude.toString(),
-  //     lon: longitude.toString(),
-  //   );
-  //   notifyListeners();
-  // }
+  void getWeatherData() async{
+    while(true){
+      await fetchWeatherData();
+      await Future.delayed(const Duration(seconds: 3));
+      notifyListeners();
+    }
+  }
 
   Future<void> fetchWeatherData() async{
     if(latitude != null && longitude != null){
       isLoading = true;
       notifyListeners();
-
       try{
         weatherData = await OpenWeatherService().getWeather(
           lat: latitude!,
@@ -97,20 +73,4 @@ class DashboardProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-
-    // Stream<OpenWeatherModel> fetchWeatherData() async*{
-    //   notifyListeners();
-    //   // while(true){
-    //   //   yield await OpenWeatherService().
-    //   //   getWeather(
-    //   //     lat: latitude!,
-    //   //     lon: longitude!,
-    //   //   );
-    //   weatherData = await OpenWeatherService().
-    //   getWeather(lat: latitude!, lon: longitude!);
-    //     await Future.delayed(const Duration(seconds: 2));
-    //     print("fetch data\n");
-    //     notifyListeners();
-    //   }
 }

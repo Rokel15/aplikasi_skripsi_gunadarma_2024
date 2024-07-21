@@ -5,8 +5,21 @@ import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashb
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_data.dart';
 import '../providers/global_provider.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+
+  @override
+  void initState() {
+    // Provider.of<DashboardProvider>(context, listen: false).fetchWeatherData();
+    Provider.of<DashboardProvider>(context, listen: false).getWeatherData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +51,6 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const SizedBox(height: 40,),
-
-                      UserData(
-                        profileIcon: dashboardProvider.profileIcon,
-                        email: dashboardProvider.email,
-                        uid: dashboardProvider.uid,
-                        emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                        uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
-                      ),
-
                       const SizedBox(height: 20,),
 
                       StreamBuilder<LocationModel>(
@@ -59,22 +62,39 @@ class DashboardScreen extends StatelessWidget {
                               latitude: locationData.latitude,
                               longitude: locationData.longitude,
                             );
-                            return Column(
-                              children: [
-                                Text("latitude : ${locationData.latitude}"),
-                                Text("longitude : ${locationData.longitude}"),
-                              ],
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 28),
+                              child: Column(
+                                children: [
+                                  Text("lat : ${locationData.latitude}"),
+                                  Text("lon : ${locationData.longitude}"),
+                                ],
+                              ),
                             );
                           } else{
-                            return Container();
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 28),
+                              child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("lat : waiting..."),
+                                  Text("lon : waiting..."),
+                                ],
+                              ),
+                            );
                           }
                         },
                       ),
 
                       const SizedBox(height: 20,),
 
-                      Text("latitude : ${dashboardProvider.latitude}"),
-                      Text("longitude : ${dashboardProvider.longitude}"),
+                      UserData(
+                        profileIcon: dashboardProvider.profileIcon,
+                        email: dashboardProvider.email,
+                        uid: dashboardProvider.uid,
+                        emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                        uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
+                      ),
 
                       const SizedBox(height: 20,),
 
@@ -91,76 +111,224 @@ class DashboardScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 24,),
 
-                            if(dashboardProvider.isLoading)
-                              const Center(child: CircularProgressIndicator(),)
-                            else if(dashboardProvider.weatherData != null)
-                              Column(
-                                children: [
-                                  Text("lat ${dashboardProvider.weatherData!.coord.lat}"),
-                                  Text("lon ${dashboardProvider.weatherData!.coord.lon}"),
-                                  Column(
-                                    children: dashboardProvider.weatherData!.weather.map((weather) => Text("main : ${weather.main}")).toList(),
-                                  ),
-                                  Column(
-                                    children: dashboardProvider.weatherData!.weather.map((weather) => Text("description : ${weather.description}")).toList(),
-                                  ),
-                                  Text("base : ${dashboardProvider.weatherData!.base}"),
-                                  Text("main temp : ${dashboardProvider.weatherData!.main.temp}"),
-                                  Text("main feels like : ${dashboardProvider.weatherData!.main.feelsLike}"),
-                                  Text("main humidity : ${dashboardProvider.weatherData!.main.humidity}"),
-                                  Text("visibility : ${dashboardProvider.weatherData!.visibility}"),
-                                  Text("wind speed : ${dashboardProvider.weatherData!.wind.speed}"),
-                                  Text("sys id : ${dashboardProvider.weatherData!.sys.id}"),
-                                  Text("sys country : ${dashboardProvider.weatherData!.sys.country}"),
-                                  Text("name : ${dashboardProvider.weatherData!.name}"),
-                                  Text("Weather COD: ${dashboardProvider.weatherData!.cod}"),
-                                ],
+                            // if(dashboardProvider.isLoading)
+                            //   const Center(child: CircularProgressIndicator(),)
+                            // else
+                            if(dashboardProvider.weatherData != null)
+                              Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 20),
+                                width: double.infinity,
+                                child:
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  children: dashboardProvider.
+                                                  weatherData!.
+                                                  weather.
+                                                  map((weather)
+                                                  => Text(
+                                                    "${weather.main},\t\t",
+                                                    style: Provider.of<GlobalProvider>(context, listen: false).roboto18Bold,
+                                                  )).toList(),
+                                                ),
+
+                                                Text(
+                                                  "humid : ${dashboardProvider.weatherData!.main.humidity}%",
+                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "${dashboardProvider.weatherData!.main.temp}, \t",
+                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                                                ),
+                                                Text(
+                                                  "like : ${dashboardProvider.weatherData!.main.feelsLike}",
+                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "min : ${dashboardProvider.weatherData!.main.tempMin}",
+                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                                ),
+                                                Text("\t|\t", style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,),
+                                                Text(
+                                                  "max : ${dashboardProvider.weatherData!.main.tempMax}",
+                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              "Wind speed : ${dashboardProvider.weatherData!.wind.speed} m/s",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
+                                            ),
+                                          ],
+                                        ),
+
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "Country : ${dashboardProvider.weatherData!.sys.country}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                                            ),
+                                            Text("Visibility : ${dashboardProvider.weatherData!.visibility}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
+                                            ),
+                                            Text(
+                                              dashboardProvider.weatherData!.name,
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 28,),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Base : ${dashboardProvider.weatherData!.base}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
+                                            ),
+                                            Text(
+                                              "system id : ${dashboardProvider.weatherData!.sys.id}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
+                                            ),
+                                            Text(
+                                              "response : ${dashboardProvider.weatherData!.cod}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
+                                            ),
+                                          ],
+                                        ),
+
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "At : ",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+                                            ),
+                                            Text(
+                                              "lat ${dashboardProvider.weatherData!.coord.lat}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                            ),
+                                            Text(
+                                              "lon ${dashboardProvider.weatherData!.coord.lon}",
+                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               )
+
                             else
-                              const Text("No data available"),
-
-                            // FutureBuilder(
-                            //   future: OpenWeatherService().getWeather(
-                            //     lat: dashboardProvider.latitude.toString(),
-                            //     lon: dashboardProvider.longitude.toString(),
-                            //   ),
-                            //   builder: (_, snapshot) {
-                            //     if (snapshot.hasError) {
-                            //       return Text("Error: ${snapshot.error}");
-                            //     } else if (!snapshot.hasData || snapshot.data == null) {
-                            //       return const Text("No data available");
-                            //     } else {
-                            //       OpenWeatherModel weatherData = snapshot.data!;
-                            //       return Column(
-                            //         children: [
-                            //           Text("lat ${weatherData.coord.lat}"),
-                            //           Text("lon ${weatherData.coord.lon}"),
-                            //           Column(
-                            //             children: weatherData.weather.map((weather) => Text("main : ${weather.main}")).toList(),
-                            //           ),
-                            //           Column(
-                            //             children: weatherData.weather.map((weather) => Text("description : ${weather.description}")).toList(),
-                            //           ),
-                            //           Text("base : ${weatherData.base}"),
-                            //           Text("main temp : ${weatherData.main.temp}"),
-                            //           Text("main feels like : ${weatherData.main.feelsLike}"),
-                            //           Text("main humidity : ${weatherData.main.humidity}"),
-                            //           Text("visibility : ${weatherData.visibility}"),
-                            //           Text("wind speed : ${weatherData.wind.speed}"),
-                            //           Text("sys id : ${weatherData.sys.id}"),
-                            //           Text("sys country : ${weatherData.sys.country}"),
-                            //           Text("name : ${weatherData.name}"),
-                            //           Text("Weather COD: ${weatherData.cod}"),
-                            //         ],
-                            //       );
-                            //     }
-                            //   },
-                            // ),
-
-                            ElevatedButton(
-                              onPressed: () => dashboardProvider.fetchWeatherData(),
-                              child: const Text("Load Data"),
-                            ),
+                              const Text("no data"),
+                              // Container(
+                              //   margin: const EdgeInsets.symmetric(horizontal: 20),
+                              //   width: double.infinity,
+                              //   child:
+                              //   Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Row(
+                              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //         crossAxisAlignment: CrossAxisAlignment.start,
+                              //         children: [
+                              //           Column(
+                              //             crossAxisAlignment: CrossAxisAlignment.start,
+                              //             children: [
+                              //               Row(
+                              //                 children: [
+                              //                   Column(
+                              //                     children: dashboardProvider.weatherData!.weather.map((weather) => Text("${weather.main},\t\t")).toList(),
+                              //                   ),
+                              //
+                              //                   Text("humid : ${dashboardProvider.weatherData!.main.humidity}%"),
+                              //                 ],
+                              //               ),
+                              //               Row(
+                              //                 children: [
+                              //                   Text("${dashboardProvider.weatherData!.main.temp}, \t"),
+                              //                   Text("like : ${dashboardProvider.weatherData!.main.feelsLike}"),
+                              //                 ],
+                              //               ),
+                              //               Row(
+                              //                 children: [
+                              //                   Text("min : ${dashboardProvider.weatherData!.main.tempMin}"),
+                              //                   const Text("\t|\t"),
+                              //                   Text("max : ${dashboardProvider.weatherData!.main.tempMax}"),
+                              //                 ],
+                              //               ),
+                              //               Text("Wind speed : ${dashboardProvider.weatherData!.wind.speed} m/s"),
+                              //             ],
+                              //           ),
+                              //
+                              //           Column(
+                              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //             crossAxisAlignment: CrossAxisAlignment.end,
+                              //             children: [
+                              //               Text("Country : ${dashboardProvider.weatherData!.sys.country}"),
+                              //               Text("Visibility : ${dashboardProvider.weatherData!.visibility}"),
+                              //               Text(dashboardProvider.weatherData!.name),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
+                              //
+                              //       const SizedBox(height: 32,),
+                              //
+                              //       Row(
+                              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //         crossAxisAlignment: CrossAxisAlignment.start,
+                              //         children: [
+                              //           Column(
+                              //             crossAxisAlignment: CrossAxisAlignment.start,
+                              //             children: [
+                              //               Text("Base : ${dashboardProvider.weatherData!.base}"),
+                              //               Text("system id : ${dashboardProvider.weatherData!.sys.id}"),
+                              //               Text("response : ${dashboardProvider.weatherData!.cod}"),
+                              //             ],
+                              //           ),
+                              //
+                              //           Column(
+                              //             crossAxisAlignment: CrossAxisAlignment.end,
+                              //             children: [
+                              //               const Text("At : "),
+                              //               Text("lat ${dashboardProvider.weatherData!.coord.lat}"),
+                              //               Text("lon ${dashboardProvider.weatherData!.coord.lon}"),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       )
+                              //     ],
+                              //   ),
+                              // )knp mas?
                           ],
                         ),
                       ),
