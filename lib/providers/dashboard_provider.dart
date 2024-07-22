@@ -26,6 +26,8 @@ class DashboardProvider extends ChangeNotifier {
 
   String? latitude;
   String? longitude;
+  double? targetLat;
+  double? targetLon;
   OpenWeatherModel? weatherData;
   bool isLoading = false;
 
@@ -35,6 +37,8 @@ class DashboardProvider extends ChangeNotifier {
   }) async {
     this.latitude = await latitude.toString();
     this.longitude = await longitude.toString();
+    this.targetLat = await latitude;
+    this.targetLon = await longitude;
     notifyListeners();
   }
 

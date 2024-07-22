@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/location_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_info.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/weather_widget.dart';
 import '../providers/global_provider.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -25,6 +27,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Consumer<DashboardProvider>(
       builder: (context, dashboardProvider, child) {
+        double? latitude = dashboardProvider.targetLat;
+        double? longitude = dashboardProvider.targetLon;
         return PopScope(
           canPop: false,
           onPopInvoked: (didPop){
@@ -54,13 +58,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const SizedBox(height: 28,),
 
                       UserInfo(
-                        containerColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
                         profileIcon: dashboardProvider.profileIcon,
+                        containerColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
                         email: dashboardProvider.email,
                         uid: dashboardProvider.uid,
                         emailTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                        uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
-                        lat: dashboardProvider.longitude.toString(),
+                        uidTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14Italic,
+                        lat: dashboardProvider.latitude.toString(),
                         lon: dashboardProvider.longitude.toString(),
                         latLonTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
                       ),
@@ -74,27 +78,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               latitude: locationData.latitude,
                               longitude: locationData.longitude,
                             );
-                            return Container(
-                              // margin: const EdgeInsets.symmetric(horizontal: 28),
-                              // child: Column(
-                              //   children: [
-                              //     Container(),
-                                  // Text("lat : ${locationData.latitude}"),
-                                  // Text("lon : ${locationData.longitude}"),
-                              //   ],
-                              // ),
-                            );
+                            return Container();
                           } else{
-                            return Container(
-                            //   margin: const EdgeInsets.symmetric(horizontal: 28),
-                            //   child: const Column(
-                            //     mainAxisAlignment: MainAxisAlignment.start,
-                            //     children: [
-                            //       Text("lat : waiting..."),
-                            //       Text("lon : waiting..."),
-                            //     ],
-                            //   ),
-                            );
+                            return Container();
                           }
                         },
                       ),
@@ -120,144 +106,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             const SizedBox(height: 24,),
 
-                            // if(dashboardProvider.isLoading)
-                            //   const Center(child: CircularProgressIndicator(),)
-                            // else
-                            if(dashboardProvider.weatherData != null)
-                              Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 20),
-                                width: double.infinity,
-                                child:
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  children: dashboardProvider.
-                                                  weatherData!.
-                                                  weather.
-                                                  map((weather)
-                                                  => Text(
-                                                    "${weather.main},\t\t",
-                                                    style: Provider.of<GlobalProvider>(context, listen: false).roboto18Bold,
-                                                  )).toList(),
-                                                ),
+                            const WeatherWidget(),
 
-                                                Text(
-                                                  "humid : ${dashboardProvider.weatherData!.main.humidity}%",
-                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${dashboardProvider.weatherData!.main.temp}, \t",
-                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                                                ),
-                                                Text(
-                                                  "like : ${dashboardProvider.weatherData!.main.feelsLike}",
-                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "min : ${dashboardProvider.weatherData!.main.tempMin}",
-                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                                ),
-                                                Text("\t|\t", style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,),
-                                                Text(
-                                                  "max : ${dashboardProvider.weatherData!.main.tempMax}",
-                                                  style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              "Wind speed : ${dashboardProvider.weatherData!.wind.speed} m/s",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
-                                            ),
-                                          ],
-                                        ),
+                            const SizedBox(height: 24,),
 
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "Country : ${dashboardProvider.weatherData!.sys.country}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                                            ),
-                                            Text("Visibility : ${dashboardProvider.weatherData!.visibility}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
-                                            ),
-                                            Text(
-                                              dashboardProvider.weatherData!.name,
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                            ),
-                                          ],
+                            Container(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).orientation==Orientation.portrait?
+                              MediaQuery.of(context).size.height/4 :
+                              MediaQuery.of(context).size.width/4,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(24)),
+                              ),
+                              child: Stack(
+                                children: [
+                                  if(latitude != null && longitude != null)
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(24)),
+                                    child: GoogleMap(
+                                      initialCameraPosition: CameraPosition(
+                                        target: LatLng(
+                                          latitude, longitude,
                                         ),
-                                      ],
+                                        zoom: 20,
+                                      ),
+                                      mapType: MapType.hybrid,
+                                      rotateGesturesEnabled: true,
+                                      scrollGesturesEnabled: true,
+                                      tiltGesturesEnabled: true,
                                     ),
-
-                                    const SizedBox(height: 28,),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Base : ${dashboardProvider.weatherData!.base}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
-                                            ),
-                                            Text(
-                                              "system id : ${dashboardProvider.weatherData!.sys.id}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
-                                            ),
-                                            Text(
-                                              "response : ${dashboardProvider.weatherData!.cod}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto14Bold,
-                                            ),
-                                          ],
-                                        ),
-
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "At : ",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
-                                            ),
-                                            Text(
-                                              "lat ${dashboardProvider.weatherData!.coord.lat}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                            ),
-                                            Text(
-                                              "lon ${dashboardProvider.weatherData!.coord.lon}",
-                                              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-
-                            else
-                              const Text("no data"),
+                                  )
+                                  else
+                                    const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),

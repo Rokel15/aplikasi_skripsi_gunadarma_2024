@@ -36,15 +36,15 @@ class FormLoginInput extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(18),),
-            borderSide: BorderSide(color: borderColor, width: 3),
+            borderSide: BorderSide(color: borderColor, width: 2.6),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(18),),
-            borderSide: BorderSide(color: borderColor, width: 3),
+            borderSide: BorderSide(color: borderColor, width: 2.6),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(18),),
-            borderSide: BorderSide(color: borderColor,width: 3),
+            borderSide: BorderSide(color: borderColor,width: 2.6),
           ),
         ),
       ),

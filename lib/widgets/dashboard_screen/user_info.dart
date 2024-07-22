@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UserInfo extends StatelessWidget {
-  Color containerColor;
   String profileIcon;
+  Color containerColor;
   String email;
   String uid;
   TextStyle emailTextStyle;
@@ -13,8 +13,8 @@ class UserInfo extends StatelessWidget {
 
   UserInfo({
     super.key,
-    required this.containerColor,
     required this.profileIcon,
+    required this.containerColor,
     required this.email,
     required this.uid,
     required this.emailTextStyle,
@@ -28,21 +28,31 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
       decoration: BoxDecoration(
         color: containerColor,
         borderRadius: BorderRadius.circular(24)
       ),
       width: double.infinity,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image.asset(
+            profileIcon,
+            width: MediaQuery.of(context).orientation==Orientation.portrait?
+            MediaQuery.of(context).size.width/3 :
+            MediaQuery.of(context).size.height/3,
+            height: MediaQuery.of(context).orientation==Orientation.portrait?
+            MediaQuery.of(context).size.width/3 :
+            MediaQuery.of(context).size.height/3,
+          ),
+          const SizedBox(height: 20,),
           Container(
             padding: const EdgeInsets.all(12),
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.circular(14)
+              borderRadius: BorderRadius.circular(22)
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,17 +63,13 @@ class UserInfo extends StatelessWidget {
               ],
             ),
           ),
-
-          const SizedBox(
-            height: 20,
-          ),
-
+          const SizedBox(height: 20,),
           Container(
             padding: const EdgeInsets.all(12),
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(22),
             ),
             // child: Text("$lat,$lon"),
             child: Row(
@@ -74,7 +80,7 @@ class UserInfo extends StatelessWidget {
                   style: latLonTextStyle,
                 ),
                 GestureDetector(
-                  child: Icon(Icons.keyboard_arrow_right),
+                  child: const Icon(Icons.keyboard_arrow_right),
                   onTap: (){},
                 )
               ],
