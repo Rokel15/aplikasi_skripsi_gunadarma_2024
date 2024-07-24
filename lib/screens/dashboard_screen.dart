@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/location_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/preview_map.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_info.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/weather_widget.dart';
 import '../providers/global_provider.dart';
@@ -108,43 +110,80 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                             const WeatherWidget(),
 
-                            const SizedBox(height: 24,),
+                            const SizedBox(height: 23,),
 
-                            Container(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).orientation==Orientation.portrait?
-                              MediaQuery.of(context).size.height/4 :
-                              MediaQuery.of(context).size.width/4,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(24)),
-                              ),
-                              child: Stack(
-                                children: [
-                                  if(latitude != null && longitude != null)
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(24)),
-                                    child: GoogleMap(
-                                      initialCameraPosition: CameraPosition(
-                                        target: LatLng(
-                                          latitude, longitude,
-                                        ),
-                                        zoom: 20,
-                                      ),
-                                      mapType: MapType.hybrid,
-                                      rotateGesturesEnabled: true,
-                                      scrollGesturesEnabled: true,
-                                      tiltGesturesEnabled: true,
-                                    ),
-                                  )
-                                  else
-                                    const Center(
-                                      child: CircularProgressIndicator(
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                ],
-                              ),
+                            PreviewMap(
+                              mapType: MapType.hybrid,
+                              zoom: 18,
+                              seeFullMap: () => dashboardProvider.seeMap(context),
                             ),
+
+                            // Container(
+                            //   width: double.infinity,
+                            //   height: MediaQuery.of(context).orientation==Orientation.portrait?
+                            //   MediaQuery.of(context).size.height/4 :
+                            //   MediaQuery.of(context).size.width/4,
+                            //   decoration: const BoxDecoration(
+                            //     borderRadius: BorderRadius.all(Radius.circular(24)),
+                            //   ),
+                            //   child: Stack(
+                            //     children: [
+                            //       if(latitude != null && longitude != null)
+                            //       ClipRRect(
+                            //         borderRadius: const BorderRadius.all(Radius.circular(24)),
+                            //         child: GoogleMap(
+                            //           initialCameraPosition: CameraPosition(
+                            //             target: LatLng(latitude, longitude,),
+                            //             zoom: 17,
+                            //           ),
+                            //           mapType: MapType.hybrid,
+                            //           rotateGesturesEnabled: true,
+                            //           scrollGesturesEnabled: true,
+                            //           tiltGesturesEnabled: true,
+                            //         ),
+                            //       )
+                            //       else
+                            //         const Center(
+                            //           child: CircularProgressIndicator(
+                            //             color: Colors.blue,
+                            //           ),
+                            //         ),
+                            //
+                            //       Align(
+                            //         alignment: Alignment.topRight,
+                            //         child: GestureDetector(
+                            //           child: Container(
+                            //             margin: const EdgeInsets.all(20),
+                            //             padding: const EdgeInsets.all(12),
+                            //             decoration: BoxDecoration(
+                            //               color: Colors.white,
+                            //               borderRadius: BorderRadius.circular(16),
+                            //             ),
+                            //             child: const Icon(Icons.arrow_forward, color: Colors.black,),
+                            //           ),
+                            //           onTap: (){
+                            //             dashboardProvider.seeMap(context);
+                            //           },
+                            //         ),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+
+                            Container(height: 100,),
+
+                            ElevatedButton(
+                              onPressed: (){
+                                collectionReference.add({
+                                  "uid" : dashboardProvider.uid,
+                                  "latitude" : -6.1701238,
+                                  "longitude" : 106.8219881,
+                                  "name" : "Istana Merdeka",
+                                  "desc" : "://img-z.okeinfo.net/library/images/214/gtesxf7d7xil1",
+                                });
+                              },
+                              child: Text("add data for test firebase"),
+                            )
                           ],
                         ),
                       ),

@@ -77,4 +77,9 @@ class DashboardProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void seeMap(BuildContext context){
+    Navigator.pushNamed(context, "/map screen");
+    notifyListeners();
+  }
 }

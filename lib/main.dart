@@ -7,6 +7,7 @@ import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashb
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/dashboard_screen.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/login_screen.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/map_screen.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/screens/registration_screen.dart';
 
 void main() async{
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           "/login screen" : (BuildContext context) => const LoginScreen(),
           "/registration screen" : (BuildContext context) => const RegistrationScreen(),
           "/dashboard screen" : (BuildContext context) => const DashboardScreen(),
+          "/map screen" : (BuildContext context) => const MapScreen(),
         },
       ),
     );
