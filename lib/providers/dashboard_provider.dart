@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/open_weather_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/map_screen/input_data_dialog.dart';
 import '../services/location_service.dart';
 import '../services/open_weather_service.dart';
 
@@ -42,16 +43,6 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future fetchWeatherData(
-  //     // {required String lat, required String lon}
-  //     ) async{
-  //   await OpenWeatherService().getWeather(
-  //     lat: latitude.toString(),
-  //     lon: longitude.toString(),
-  //   );
-  //   notifyListeners();
-  // }
-
   void getWeatherData() async{
     while(true){
       await fetchWeatherData();
@@ -83,7 +74,20 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void setMarker(){
-  //   List<Marker> marker = [];
-  // }
+  TextEditingController inputNameController = TextEditingController();
+  TextEditingController inputDescController = TextEditingController();
+  TextEditingController inputLatController = TextEditingController();
+  TextEditingController inputLonController = TextEditingController();
+
+  addLocation(){
+    inputLatController.text = targetLat.toString();
+    inputLonController.text = targetLon.toString();
+    return InputDataDialog(
+      inputNameController: inputNameController,
+      inputDescController: inputDescController,
+      inputLatController: inputLatController,
+      inputLonController: inputLonController,
+      addData: (){},
+    );
+  }
 }

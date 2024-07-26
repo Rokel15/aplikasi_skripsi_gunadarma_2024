@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/map_screen/input_data_dialog.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -34,116 +35,119 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
   }
 
-  addLocation({
-    required BuildContext context,
-    required double latitude,
-    required double longitude,
-  }){
-    latController.text = latitude.toString();
-    lonController.text = longitude.toString();
-    return SimpleDialog(
-      title: const Center(child: Text("add location",)),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      shadowColor: Colors.white,
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Name :",),
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20,),
-
-              Text("Desc :",),
-              TextField(
-                controller: descController, maxLines: 2,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20,),
-
-              Text("lat, lonn :",),
-              TextField(
-                controller: latController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              TextField(
-                controller: lonController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18),),
-                    borderSide: BorderSide(color: Colors.white, width: 1.6,),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add_task_rounded,),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // addLocation({
+  //   required BuildContext context,
+  //   required double latitude,
+  //   required double longitude,
+  // }){
+  //   latController.text = latitude.toString();
+  //   lonController.text = longitude.toString();
+  //   return SimpleDialog(
+  //     title: const Center(child: Text("add location",)),
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+  //     shadowColor: Colors.white,
+  //     children: [
+  //       Container(
+  //         margin: EdgeInsets.symmetric(horizontal: 14),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Text("Name :",),
+  //             TextField(
+  //               controller: nameController,
+  //               decoration: const InputDecoration(
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 enabledBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 focusedBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 20,),
+  //
+  //             Text("Desc :",),
+  //             TextField(
+  //               controller: descController, maxLines: 2,
+  //               decoration: const InputDecoration(
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 enabledBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 focusedBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 20,),
+  //
+  //             Text("lat, lonn :",),
+  //             TextField(
+  //               controller: latController,
+  //               decoration: const InputDecoration(
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 enabledBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 focusedBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //               ),
+  //             ),
+  //             const SizedBox(height: 10,),
+  //             TextField(
+  //               controller: lonController,
+  //               decoration: const InputDecoration(
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 enabledBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //                 focusedBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
+  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 20,),
+  //
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 GestureDetector(
+  //                   child: const Icon(Icons.add_task_rounded, size: 34,),
+  //                   onTap: (){},
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -168,13 +172,7 @@ class _MapScreenState extends State<MapScreen> {
                   onTap: (){
                     showDialog(
                       context: context,
-                      builder: (context) {
-                        return addLocation(
-                          context: context,
-                          latitude: latitude!,
-                          longitude: longitude!,
-                        );
-                      },
+                      builder: (context) {return dashboardProvider.addLocation();},
                     );
                   },
                 ),
