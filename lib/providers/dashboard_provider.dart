@@ -82,4 +82,8 @@ class DashboardProvider extends ChangeNotifier {
     Navigator.pushNamed(context, "/map screen");
     notifyListeners();
   }
+
+  // void setMarker(){
+  //   List<Marker> marker = [];
+  // }
 }
