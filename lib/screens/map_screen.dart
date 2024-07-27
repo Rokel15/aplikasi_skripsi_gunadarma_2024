@@ -172,7 +172,7 @@ class _MapScreenState extends State<MapScreen> {
                   onTap: (){
                     showDialog(
                       context: context,
-                      builder: (context) {return dashboardProvider.addLocation();},
+                      builder: (context) {return dashboardProvider.addLocation(context);},
                     );
                   },
                 ),

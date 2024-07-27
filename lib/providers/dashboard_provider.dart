@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/open_weather_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/map_screen/input_data_dialog.dart';
 import '../services/location_service.dart';
 import '../services/open_weather_service.dart';
@@ -79,7 +80,22 @@ class DashboardProvider extends ChangeNotifier {
   TextEditingController inputLatController = TextEditingController();
   TextEditingController inputLonController = TextEditingController();
 
-  addLocation(){
+  addData() async{
+    await collectionReference.add({
+      "uid" : uid,
+      "latitude" : double.parse(inputLatController.text),
+      "longitude" : double.parse(inputLonController.text),
+      "name" : inputNameController.text,
+      "desc" : inputDescController.text,
+    });
+    inputNameController.text = "";
+    inputDescController.text = "";
+    inputLatController.text = "";
+    inputLonController.text = "";
+    notifyListeners();
+  }
+
+  addLocation(BuildContext context){
     inputLatController.text = targetLat.toString();
     inputLonController.text = targetLon.toString();
     return InputDataDialog(
@@ -87,7 +103,15 @@ class DashboardProvider extends ChangeNotifier {
       inputDescController: inputDescController,
       inputLatController: inputLatController,
       inputLonController: inputLonController,
-      addData: (){},
+      addData: () async{
+        await addData();
+        Navigator.pop(context);
+      }
     );
+  }
+
+  deleteField() async{
+
+    notifyListeners();
   }
 }
