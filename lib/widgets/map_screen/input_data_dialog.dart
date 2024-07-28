@@ -5,6 +5,7 @@ class InputDataDialog extends StatelessWidget {
   TextEditingController inputDescController;
   TextEditingController inputLatController;
   TextEditingController inputLonController;
+  TextStyle textStyle;
   Function() addData;
 
   InputDataDialog({
@@ -13,6 +14,7 @@ class InputDataDialog extends StatelessWidget {
     required this.inputDescController,
     required this.inputLatController,
     required this.inputLonController,
+    required this.textStyle,
     required this.addData,
   });
 
@@ -31,6 +33,7 @@ class InputDataDialog extends StatelessWidget {
               const Text("Name :",),
               TextField(
                 controller: inputNameController,
+                style: textStyle,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(18),),
@@ -52,6 +55,7 @@ class InputDataDialog extends StatelessWidget {
               const Text("Desc :",),
               TextField(
                 controller: inputDescController, maxLines: 2,
+                style: textStyle,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(18),),
@@ -73,6 +77,7 @@ class InputDataDialog extends StatelessWidget {
               const Text("lat, lonn :",),
               TextField(
                 controller: inputLatController,
+                style: textStyle,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(18),),

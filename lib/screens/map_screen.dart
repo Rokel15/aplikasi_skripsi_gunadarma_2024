@@ -16,137 +16,23 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController descController = TextEditingController();
-  TextEditingController latController = TextEditingController();
-  TextEditingController lonController = TextEditingController();
+  // TextEditingController nameController = TextEditingController();
+  // TextEditingController descController = TextEditingController();
+  // TextEditingController latController = TextEditingController();
+  // TextEditingController lonController = TextEditingController();
 
-  @override
-  void dispose() {
-    nameController.dispose();
-    descController.dispose();
-    latController.dispose();
-    lonController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   nameController.dispose();
+  //   descController.dispose();
+  //   latController.dispose();
+  //   lonController.dispose();
+  //   super.dispose();
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // addLocation({
-  //   required BuildContext context,
-  //   required double latitude,
-  //   required double longitude,
-  // }){
-  //   latController.text = latitude.toString();
-  //   lonController.text = longitude.toString();
-  //   return SimpleDialog(
-  //     title: const Center(child: Text("add location",)),
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-  //     shadowColor: Colors.white,
-  //     children: [
-  //       Container(
-  //         margin: EdgeInsets.symmetric(horizontal: 14),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text("Name :",),
-  //             TextField(
-  //               controller: nameController,
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //               ),
-  //             ),
-  //
-  //             const SizedBox(height: 20,),
-  //
-  //             Text("Desc :",),
-  //             TextField(
-  //               controller: descController, maxLines: 2,
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //               ),
-  //             ),
-  //
-  //             const SizedBox(height: 20,),
-  //
-  //             Text("lat, lonn :",),
-  //             TextField(
-  //               controller: latController,
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //               ),
-  //             ),
-  //             const SizedBox(height: 10,),
-  //             TextField(
-  //               controller: lonController,
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(18),),
-  //                   borderSide: BorderSide(color: Colors.white, width: 1.6,),
-  //                 ),
-  //               ),
-  //             ),
-  //
-  //             const SizedBox(height: 20,),
-  //
-  //             Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 GestureDetector(
-  //                   child: const Icon(Icons.add_task_rounded, size: 34,),
-  //                   onTap: (){},
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
+  // @override
+  // void initState() {
+  //   super.initState();
   // }
 
   @override
@@ -249,7 +135,10 @@ class _MapScreenState extends State<MapScreen> {
                                     ),
                                     GestureDetector(
                                       child: const Icon(Icons.delete,),
-                                      onTap: (){},
+                                      onTap: ()async{
+                                        await collectionReference.doc(e.id).delete();
+                                        setState(() {});
+                                      },
                                     ),
                                   ],
                                 ),
@@ -264,7 +153,7 @@ class _MapScreenState extends State<MapScreen> {
                 );
               } else{
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: Colors.blue,),
                 );
               }
             },

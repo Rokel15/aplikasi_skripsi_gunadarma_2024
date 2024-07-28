@@ -1,6 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/open_weather_model.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/map_screen/input_data_dialog.dart';
@@ -70,8 +74,10 @@ class DashboardProvider extends ChangeNotifier {
     }
   }
 
+  // Completer<GoogleMapController> gMapController = Completer();
+
   void seeMap(BuildContext context){
-    Navigator.pushNamed(context, "/map screen");
+    Navigator.pushNamed(context, "/map screen type 2");
     notifyListeners();
   }
 
@@ -103,15 +109,11 @@ class DashboardProvider extends ChangeNotifier {
       inputDescController: inputDescController,
       inputLatController: inputLatController,
       inputLonController: inputLonController,
+      textStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
       addData: () async{
         await addData();
         Navigator.pop(context);
       }
     );
-  }
-
-  deleteField() async{
-
-    notifyListeners();
   }
 }

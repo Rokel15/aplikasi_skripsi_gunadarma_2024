@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/location_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/land_analytics.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/preview_map.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_info.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/weather_widget.dart';
@@ -118,6 +119,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               seeFullMap: () => dashboardProvider.seeMap(context),
                             ),
 
+                            const SizedBox(height: 23,),
+
+                           LandAnalytics(),
+
                             // Container(
                             //   width: double.infinity,
                             //   height: MediaQuery.of(context).orientation==Orientation.portrait?
@@ -182,7 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   "desc" : "://img-z.okeinfo.net/library/images/214/gtesxf7d7xil1",
                                 });
                               },
-                              child: Text("add data for test firebase"),
+                              child: Text("add data for test firebasee"),
                             )
                           ],
                         ),
