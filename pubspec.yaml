@@ -45,7 +45,7 @@ dependencies:
   location: ^7.0.0
   dio: ^5.5.0+1
   google_maps_flutter: ^2.7.0
-
+  google_generative_ai: ^0.4.3
 
 dev_dependencies:
   flutter_test:

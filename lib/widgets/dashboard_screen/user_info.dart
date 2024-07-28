@@ -10,6 +10,7 @@ class UserInfo extends StatelessWidget {
   String lat;
   String lon;
   TextStyle latLonTextStyle;
+  Function() seeMap;
 
   UserInfo({
     super.key,
@@ -22,6 +23,7 @@ class UserInfo extends StatelessWidget {
     required this.lat,
     required this.lon,
     required this.latLonTextStyle,
+    required this.seeMap,
   });
 
   @override
@@ -81,7 +83,7 @@ class UserInfo extends StatelessWidget {
                 ),
                 GestureDetector(
                   child: const Icon(Icons.keyboard_arrow_right),
-                  onTap: (){},
+                  onTap: () => seeMap(),
                 )
               ],
             ),

@@ -53,11 +53,11 @@ class WeatherWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "${(dashboardProvider.weatherData!.main.temp - 273.15).toStringAsFixed(2)}°, \t",
+                                  "${(dashboardProvider.weatherData!.main.temp - 273.15).toStringAsFixed(2)}° C, \t",
                                   style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
                                 ),
                                 Text(
-                                  "like : ${(dashboardProvider.weatherData!.main.feelsLike - 273.15).toStringAsFixed(2)}°",
+                                  "like : ${(dashboardProvider.weatherData!.main.feelsLike - 273.15).toStringAsFixed(2)}° C",
                                   style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
                                 ),
                               ],
@@ -65,12 +65,12 @@ class WeatherWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "min : ${dashboardProvider.weatherData!.main.tempMin}°",
+                                  "min : ${dashboardProvider.weatherData!.main.tempMin}° C",
                                   style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
                                 ),
                                 Text("\t|\t", style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,),
                                 Text(
-                                  "max : ${dashboardProvider.weatherData!.main.tempMax}°",
+                                  "max : ${dashboardProvider.weatherData!.main.tempMax}° C",
                                   style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
                                 ),
                               ],
@@ -173,7 +173,7 @@ class WeatherWidget extends StatelessWidget {
                               style: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
                             ),
                             Text(
-                              "Waiting...°",
+                              "Waiting...",
                               style: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
                             ),
                             Text(

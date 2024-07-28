@@ -40,24 +40,26 @@ class ShowMyArea extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Name : $name", style: nameTextStyle,),
-                Text("Desc : $desc", style: descTextStyle,),
-                const SizedBox(height: 14,),
-                Row(
-                  children: [
-                    Text("lat : $latitude,\t\t\t", style: latLongTextStyle,),
-                    Text("lon : $longitude,\t\t", style: latLongTextStyle,),
-                    const Icon(Icons.place, size: 28,)
-                  ],
-                ),
-              ],
+          Flexible(
+            child: GestureDetector(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Name : $name", style: nameTextStyle,),
+                  Text("Desc : $desc", style: descTextStyle, overflow: TextOverflow.ellipsis,),
+                  const SizedBox(height: 14,),
+                  Row(
+                    children: [
+                      Text("lat : $latitude,\t\t\t", style: latLongTextStyle,),
+                      Text("lon : $longitude,\t\t", style: latLongTextStyle,),
+                      const Icon(Icons.place, size: 28,)
+                    ],
+                  ),
+                ],
+              ),
+              onTap: (){onClickPlace();},
             ),
-            onTap: (){onClickPlace();},
           ),
 
           GestureDetector(

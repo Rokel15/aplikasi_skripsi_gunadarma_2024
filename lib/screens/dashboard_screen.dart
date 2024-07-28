@@ -3,7 +3,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/location_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/dashboard_provider.dart';
-import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/land_analytics.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/preview_map.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/dashboard_screen/user_info.dart';
@@ -70,6 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         lat: dashboardProvider.latitude.toString(),
                         lon: dashboardProvider.longitude.toString(),
                         latLonTextStyle: Provider.of<GlobalProvider>(context, listen: false).roboto14SemiBold,
+                        seeMap: () => dashboardProvider.seeMap(context),
                       ),
 
                       StreamBuilder<LocationModel>(
@@ -119,9 +119,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               seeFullMap: () => dashboardProvider.seeMap(context),
                             ),
 
-                            const SizedBox(height: 23,),
+                            const SizedBox(height: 28,),
 
-                           LandAnalytics(),
+                            LandAnalytics(
+                              landAnalyticHead: dashboardProvider.landAnalyticHead,
+                              submitButtonText: dashboardProvider.submitButtonText,
+                              soilTypeLabel: dashboardProvider.soilTypeLabel,
+                              moistureLevelLabel: dashboardProvider.moistureLevelLabel,
+                              pHLevelLabel: dashboardProvider.pHLevelLabel,
+                              soilType: dashboardProvider.selectSoilType,
+                              moistureLevel: dashboardProvider.selectMoistureLevel,
+                              pHLevel: dashboardProvider.selectPHLevel,
+                              soilTypeItems: dashboardProvider.soilTypeItems.map((String val){
+                               return DropdownMenuItem(
+                                 value: val,
+                                 child: Row(
+                                   children: [
+                                     Text(val),
+                                     const Icon(Icons.arrow_drop_down),
+                                   ],
+                                 ),
+                               );
+                              }).toList(),
+                              moistureLevelItems: dashboardProvider.moistureLevelItems.map((String val){
+                                return DropdownMenuItem(
+                                  value: val,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(val),
+                                      const Icon(Icons.arrow_drop_down),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                              pHLevelItems: dashboardProvider.pHLevelItems.map((String val){
+                                return DropdownMenuItem(
+                                  value: val,
+                                  child: Row(
+                                    children: [
+                                      Text(val),
+                                      const Icon(Icons.arrow_drop_down),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                              onChangedSoilType: (String? val) => dashboardProvider.onChangedSoilType(val!),
+                              onChangedMoistureLevel: (String? val) => dashboardProvider.onChangedMoistureLevel(val!),
+                              onChangedPHLevel: (String? val) => dashboardProvider.onChangedPHLevel(val!),
+                              additionalCommentsLabel: dashboardProvider.textFieldLabel,
+                              additionalCommentsController: dashboardProvider.additionalCommentsController,
+                              additionalCommentsHintText: dashboardProvider.additionalCommentsHintText,
+                              additionalCommentsBorderColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
+                              analyticResult: dashboardProvider.analyticResult,
+                              getResult: (){},
+                            ),
 
                             // Container(
                             //   width: double.infinity,
@@ -177,18 +229,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                             Container(height: 100,),
 
-                            ElevatedButton(
-                              onPressed: (){
-                                collectionReference.add({
-                                  "uid" : dashboardProvider.uid,
-                                  "latitude" : -6.1701238,
-                                  "longitude" : 106.8219881,
-                                  "name" : "Istana Merdeka",
-                                  "desc" : "://img-z.okeinfo.net/library/images/214/gtesxf7d7xil1",
-                                });
-                              },
-                              child: Text("add data for test firebasee"),
-                            )
+                            // ElevatedButton(
+                            //   onPressed: (){
+                            //     collectionReference.add({
+                            //       "uid" : dashboardProvider.uid,
+                            //       "latitude" : -6.1701238,
+                            //       "longitude" : 106.8219881,
+                            //       "name" : "Istana Merdeka",
+                            //       "desc" : "://img-z.okeinfo.net/library/images/214/gtesxf7d7xil1",
+                            //     });
+                            //   },
+                            //   child: Text("add data for test firebasee"),
+                            // ),
                           ],
                         ),
                       ),

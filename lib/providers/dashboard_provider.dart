@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:provider/provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/models/open_weather_model.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/providers/global_provider.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/auth_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/firestore_service.dart';
+import 'package:skripsi_aplikasi_shallot_farming_decision_makers/services/gemini_service.dart';
 import 'package:skripsi_aplikasi_shallot_farming_decision_makers/widgets/map_screen/input_data_dialog.dart';
 import '../services/location_service.dart';
 import '../services/open_weather_service.dart';
@@ -115,5 +116,65 @@ class DashboardProvider extends ChangeNotifier {
         Navigator.pop(context);
       }
     );
+  }
+
+  String landAnalyticHead = "Land Analytic";
+  String submitButtonText = "Submit";
+  String soilTypeLabel = "Soil Type :";
+  String moistureLevelLabel = "Moisture Level :";
+  String pHLevelLabel = "pH Level :";
+  String selectSoilType = "Select Soil Type";
+  String selectMoistureLevel = "Select Moisture Level";
+  String selectPHLevel = "Select pH Level";
+  List<String> soilTypeItems = [
+    "Select Soil Type", "Clay", "Sand", "Silt", "Loam", "Gambut", "Laterite"];
+  List<String>  moistureLevelItems = [
+    "Select Moisture Level", "Dry, 10%", "Slightly, Dry 10% - 20%", "Lembap, 20% - 40%", "Basah, > 60%",
+  ];
+  List<String>  pHLevelItems = [
+    "Select pH Level",
+    "Very Acidic: pH < 4.5",
+    "Acidic: pH 4.5 - 5.5",
+    "Slightly Acidic: pH 5.5 - 6.5",
+    "Neutral: pH 6.5 - 7.5",
+    "Slightly Alkaline: pH 7.5 - 8.5",
+    "Alkaline: pH 8.5 - 9.5",
+    "Very Alkaline: pH > 9.5",
+  ];
+
+  void onChangedSoilType(String val){
+    selectSoilType = val;
+    notifyListeners();
+  }
+
+  void onChangedMoistureLevel(String val){
+    selectMoistureLevel = val;
+    notifyListeners();
+  }
+
+  void onChangedPHLevel(String val){
+    selectPHLevel = val;
+    notifyListeners();
+  }
+
+  String textFieldLabel = "Additional Comments :";
+  TextEditingController additionalCommentsController = TextEditingController();
+  String additionalCommentsHintText = "additional comments";
+  String analyticResult = "";
+
+  GenerativeModel model = GenerativeModel(
+    model: 'gemini-1.5-flash-latest',
+    apiKey: GeminiService().apiKey,);
+
+  void getResultFromGemini() async{
+    model.generateContent([
+      Content.multi([
+
+      ])
+    ]);
+
+    model.generateContent([
+      Content.text("")
+    ]);
   }
 }
