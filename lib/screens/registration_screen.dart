@@ -26,7 +26,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             title: Text(
               "Registration",
-              style: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16SemiBold,
+              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
             ),
             backgroundColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
           ),
@@ -85,7 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                   RegistrationButton(
                     textButton: authProvider.textRegistrationButton,
-                    textStyle: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16Bold,
+                    textStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
                     buttonColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
                     onTapRegist: () => authProvider.register(context),
                   ),

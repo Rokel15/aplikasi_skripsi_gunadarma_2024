@@ -176,72 +176,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               restartAnalytic: () => dashboardProvider.restartAnalytic(),
                             ),
 
-                            // Container(
-                            //   width: double.infinity,
-                            //   height: MediaQuery.of(context).orientation==Orientation.portrait?
-                            //   MediaQuery.of(context).size.height/4 :
-                            //   MediaQuery.of(context).size.width/4,
-                            //   decoration: const BoxDecoration(
-                            //     borderRadius: BorderRadius.all(Radius.circular(24)),
-                            //   ),
-                            //   child: Stack(
-                            //     children: [
-                            //       if(latitude != null && longitude != null)
-                            //       ClipRRect(
-                            //         borderRadius: const BorderRadius.all(Radius.circular(24)),
-                            //         child: GoogleMap(
-                            //           initialCameraPosition: CameraPosition(
-                            //             target: LatLng(latitude, longitude,),
-                            //             zoom: 17,
-                            //           ),
-                            //           mapType: MapType.hybrid,
-                            //           rotateGesturesEnabled: true,
-                            //           scrollGesturesEnabled: true,
-                            //           tiltGesturesEnabled: true,
-                            //         ),
-                            //       )
-                            //       else
-                            //         const Center(
-                            //           child: CircularProgressIndicator(
-                            //             color: Colors.blue,
-                            //           ),
-                            //         ),
-                            //
-                            //       Align(
-                            //         alignment: Alignment.topRight,
-                            //         child: GestureDetector(
-                            //           child: Container(
-                            //             margin: const EdgeInsets.all(20),
-                            //             padding: const EdgeInsets.all(12),
-                            //             decoration: BoxDecoration(
-                            //               color: Colors.white,
-                            //               borderRadius: BorderRadius.circular(16),
-                            //             ),
-                            //             child: const Icon(Icons.arrow_forward, color: Colors.black,),
-                            //           ),
-                            //           onTap: (){
-                            //             dashboardProvider.seeMap(context);
-                            //           },
-                            //         ),
-                            //       )
-                            //     ],
-                            //   ),
-                            // ),
-
                             Container(height: 100,),
-
-                            // ElevatedButton(
-                            //   onPressed: (){
-                            //     collectionReference.add({
-                            //       "uid" : dashboardProvider.uid,
-                            //       "latitude" : -6.1701238,
-                            //       "longitude" : 106.8219881,
-                            //       "name" : "Istana Merdeka",
-                            //       "desc" : "://img-z.okeinfo.net/library/images/214/gtesxf7d7xil1",
-                            //     });
-                            //   },
-                            //   child: Text("add data for test firebasee"),
-                            // ),
                           ],
                         ),
                       ),

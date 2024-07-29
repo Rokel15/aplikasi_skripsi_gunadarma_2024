@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     LoginButton(
                       textButton: authProvider.textLoginButton,
-                      textStyle: Provider.of<GlobalProvider>(context, listen: false).whiteRoboto16Bold,
+                      textStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
                       buttonColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
                       onTapLogin: () => authProvider.login(context),
                     ),

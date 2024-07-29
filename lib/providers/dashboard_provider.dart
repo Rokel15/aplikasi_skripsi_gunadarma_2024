@@ -183,9 +183,10 @@ class DashboardProvider extends ChangeNotifier {
       notifyListeners();
     });
     notifyListeners();
+
     // model.generateContent([
     //   Content.text("")
-    // ]);
+    // ]); apabila hanya menggunakan 1 part saja
   }
 
   restartAnalytic(){

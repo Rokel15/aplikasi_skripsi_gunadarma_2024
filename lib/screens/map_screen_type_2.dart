@@ -58,6 +58,9 @@ class _MapScreenType2State extends State<MapScreenType2> {
                   zoom: 20,
                 ),
                 mapType: MapType.hybrid,
+                rotateGesturesEnabled: true,
+                scrollGesturesEnabled: true,
+                tiltGesturesEnabled: true,
                 onMapCreated: (GoogleMapController gMapController){
                   this.gMapController.complete(gMapController);
                 },
