@@ -170,7 +170,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               additionalCommentsLabel: dashboardProvider.textFieldLabel,
                               additionalCommentsController: dashboardProvider.additionalCommentsController,
                               additionalCommentsHintText: dashboardProvider.additionalCommentsHintText,
-                              additionalCommentsBorderColor: Provider.of<GlobalProvider>(context, listen: false).mainColor,
                               analyticResult: dashboardProvider.analyticResult,
                               getResult: (){dashboardProvider.getResultFromGemini();},
                               restartAnalytic: () => dashboardProvider.restartAnalytic(),

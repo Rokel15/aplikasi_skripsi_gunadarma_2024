@@ -125,7 +125,7 @@ class DashboardProvider extends ChangeNotifier {
   String selectMoistureLevel = "Select Moisture Level";
   String selectPHLevel = "Select pH Level";
   List<String> soilTypeItems = [
-    "Select Soil Type", "Clay", "Sand", "Silt", "Loam", "Gambut", "Laterite"];
+    "Select Soil Type", "Clay", "Sand", "Silt", "Loam", "Peat", "Laterite"];
   List<String>  moistureLevelItems = [
     "Select Moisture Level", "Dry, 10%", "Slightly, Dry 10% - 20%", "Moist, 20% - 40%", "Wet, 40% - 60%", "Very Wet, > 60%"
   ];

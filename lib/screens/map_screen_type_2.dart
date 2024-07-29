@@ -74,7 +74,7 @@ class _MapScreenType2State extends State<MapScreenType2> {
                     children: [
                       const SizedBox(width: 14,),
                       StreamBuilder(
-                        stream: collectionReference.snapshots(),
+                        stream: collectionReference.where("uid", isEqualTo: dashboardProvider.uid).snapshots(),
                         builder: (context, snapshot) {
                           if(snapshot.hasData){
                             return Row(

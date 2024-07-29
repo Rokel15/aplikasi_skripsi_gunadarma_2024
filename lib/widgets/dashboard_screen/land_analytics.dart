@@ -20,7 +20,6 @@ class LandAnalytics extends StatelessWidget{
   String additionalCommentsLabel;
   TextEditingController additionalCommentsController;
   String additionalCommentsHintText;
-  Color additionalCommentsBorderColor;
   String analyticResult;
   Function() getResult;
   Function() restartAnalytic;
@@ -44,7 +43,6 @@ class LandAnalytics extends StatelessWidget{
     required this.additionalCommentsLabel,
     required this.additionalCommentsController,
     required this.additionalCommentsHintText,
-    required this.additionalCommentsBorderColor,
     required this.analyticResult,
     required this.getResult,
     required this.restartAnalytic,
@@ -55,11 +53,19 @@ class LandAnalytics extends StatelessWidget{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(child: Text(landAnalyticHead)),
+        Center(
+          child: Text(
+            landAnalyticHead,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+          ),
+        ),
 
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(soilTypeLabel),
+          child: Text(
+            soilTypeLabel,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+          ),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
@@ -82,7 +88,10 @@ class LandAnalytics extends StatelessWidget{
 
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(moistureLevelLabel),
+          child: Text(
+            moistureLevelLabel,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+          ),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
@@ -105,7 +114,10 @@ class LandAnalytics extends StatelessWidget{
 
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(pHLevelLabel),
+          child: Text(
+            pHLevelLabel,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+          ),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
@@ -128,7 +140,10 @@ class LandAnalytics extends StatelessWidget{
 
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(additionalCommentsLabel),
+          child: Text(
+            additionalCommentsLabel,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+          ),
         ),
         Container(
           width: double.infinity,
@@ -138,6 +153,7 @@ class LandAnalytics extends StatelessWidget{
             maxLines: 3,
             decoration: InputDecoration(
               hintText: additionalCommentsHintText,
+              hintStyle: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
               border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(18),),
                 borderSide: BorderSide(color: Provider.of<GlobalProvider>(context, listen: false).mainColor, width: 2),
@@ -164,7 +180,10 @@ class LandAnalytics extends StatelessWidget{
                 borderRadius: BorderRadius.circular(18),
                 color: Provider.of<GlobalProvider>(context, listen: false).mainColor,
               ),
-              child: Text(submitButtonText),
+              child: Text(
+                submitButtonText,
+                style: Provider.of<GlobalProvider>(context, listen: false).roboto16Bold,
+              ),
             ),
             onTap: () => getResult(),
           ),
@@ -175,7 +194,10 @@ class LandAnalytics extends StatelessWidget{
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text("restart\t\t"),
+            Text(
+              "restart\t\t",
+              style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+            ),
             GestureDetector(
               child: const Icon(Icons.restart_alt, size: 28,),
               onTap: (){restartAnalytic();},
@@ -188,7 +210,10 @@ class LandAnalytics extends StatelessWidget{
 
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(analyticResult),
+          child: Text(
+            analyticResult,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+          ),
         ),
       ],
     );
