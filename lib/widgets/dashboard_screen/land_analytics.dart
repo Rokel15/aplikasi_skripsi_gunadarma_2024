@@ -23,6 +23,7 @@ class LandAnalytics extends StatelessWidget{
   Color additionalCommentsBorderColor;
   String analyticResult;
   Function() getResult;
+  Function() restartAnalytic;
 
   LandAnalytics({
     super.key,
@@ -46,6 +47,7 @@ class LandAnalytics extends StatelessWidget{
     required this.additionalCommentsBorderColor,
     required this.analyticResult,
     required this.getResult,
+    required this.restartAnalytic,
   });
 
   @override
@@ -166,6 +168,20 @@ class LandAnalytics extends StatelessWidget{
             ),
             onTap: () => getResult(),
           ),
+        ),
+
+        const SizedBox(height: 24),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text("restart\t\t"),
+            GestureDetector(
+              child: const Icon(Icons.restart_alt, size: 28,),
+              onTap: (){restartAnalytic();},
+            ),
+            const SizedBox(width: 18,),
+          ],
         ),
 
         const SizedBox(height: 20),

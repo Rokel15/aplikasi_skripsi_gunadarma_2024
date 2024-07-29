@@ -75,8 +75,6 @@ class DashboardProvider extends ChangeNotifier {
     }
   }
 
-  // Completer<GoogleMapController> gMapController = Completer();
-
   void seeMap(BuildContext context){
     Navigator.pushNamed(context, "/map screen type 2");
     notifyListeners();
@@ -129,7 +127,7 @@ class DashboardProvider extends ChangeNotifier {
   List<String> soilTypeItems = [
     "Select Soil Type", "Clay", "Sand", "Silt", "Loam", "Gambut", "Laterite"];
   List<String>  moistureLevelItems = [
-    "Select Moisture Level", "Dry, 10%", "Slightly, Dry 10% - 20%", "Lembap, 20% - 40%", "Basah, > 60%",
+    "Select Moisture Level", "Dry, 10%", "Slightly, Dry 10% - 20%", "Moist, 20% - 40%", "Wet, 40% - 60%", "Very Wet, > 60%"
   ];
   List<String>  pHLevelItems = [
     "Select pH Level",
@@ -169,12 +167,33 @@ class DashboardProvider extends ChangeNotifier {
   void getResultFromGemini() async{
     model.generateContent([
       Content.multi([
-
+        // TextPart("i have some information about an area for gardening and please give me analysis about this area"),
+        TextPart(
+            """i will give you some information about an area 
+            and please do analysis this area
+            because i am planning to do gardening in this area"""),
+        TextPart(weatherData!.main.toString()),
+        TextPart(selectSoilType),
+        TextPart(selectMoistureLevel),
+        TextPart(selectPHLevel),
+        TextPart(additionalCommentsController.text),
       ])
-    ]);
+    ]).then((value){
+      analyticResult = value.text.toString();
+      notifyListeners();
+    });
+    notifyListeners();
+    // model.generateContent([
+    //   Content.text("")
+    // ]);
+  }
 
-    model.generateContent([
-      Content.text("")
-    ]);
+  restartAnalytic(){
+    analyticResult = "";
+    selectSoilType = "Select Soil Type";
+    selectMoistureLevel = "Select Moisture Level";
+    selectPHLevel = "Select pH Level";
+    additionalCommentsController.text = "";
+    notifyListeners();
   }
 }
