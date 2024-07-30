@@ -150,6 +150,7 @@ class LandAnalytics extends StatelessWidget{
           margin: const EdgeInsets.symmetric(horizontal: 18),
           child: TextFormField(
             controller: additionalCommentsController,
+            style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
             maxLines: 3,
             decoration: InputDecoration(
               hintText: additionalCommentsHintText,

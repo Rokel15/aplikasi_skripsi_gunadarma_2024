@@ -10,12 +10,20 @@ class AppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width/2.3,
-      height: MediaQuery.of(context).size.height*3/10,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Image.asset(image, fit: BoxFit.fill,),
+    return Container(
+      width: MediaQuery.of(context).size.width / 2.2,
+      height: MediaQuery.of(context).size.width / 2.2,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+      ),
+      child: ClipOval(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Image.asset(
+            image,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
     );
   }

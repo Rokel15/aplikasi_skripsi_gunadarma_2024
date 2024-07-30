@@ -135,7 +135,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                  value: val,
                                  child: Row(
                                    children: [
-                                     Text(val),
+                                     Text(
+                                       val,
+                                       style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                     ),
                                      const Icon(Icons.arrow_drop_down),
                                    ],
                                  ),
@@ -147,7 +150,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(val),
+                                      Text(
+                                        val,
+                                        style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                      ),
                                       const Icon(Icons.arrow_drop_down),
                                     ],
                                   ),
@@ -158,7 +164,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   value: val,
                                   child: Row(
                                     children: [
-                                      Text(val),
+                                      Text(
+                                        val,
+                                        style: Provider.of<GlobalProvider>(context, listen: false).roboto16SemiBold,
+                                      ),
                                       const Icon(Icons.arrow_drop_down),
                                     ],
                                   ),
